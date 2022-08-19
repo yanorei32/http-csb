@@ -10,6 +10,8 @@ Node.js, Golang, Rust(actix) との比較検証の結果を以下に掲載する
 
 検証方法に問題がある場合、その旨の報告を願いたい。
 
+この観点で最も優れているのはRust(actix)だった。
+
 
 ```
 HTTP ContextSwitchBenchmark
