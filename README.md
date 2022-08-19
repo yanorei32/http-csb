@@ -13,6 +13,11 @@ Node.js, Golang, Rust(actix) との比較検証の結果を以下に掲載する
 この観点で最も優れているのはRust(actix)だった。
 
 
+追記
+
+そもそもコンテキストスイッチがコーダーのコンテキストスイッチの話をしている[可能性](https://twitter.com/nyaarch64/status/1560428191453675520?t=3uaM56N_0FmgxbtUNJ6abQ&s=19)に気づかずここまで突っ走ってしまった。せっかくなのでresultsでも眺めていってください。
+
+
 ```
 HTTP ContextSwitchBenchmark
 ## env

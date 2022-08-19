@@ -3,7 +3,7 @@
 set -eu
 shopt -s extglob
 
-echo HTTP ContextSwitchBenchmark
+echo "# HTTP ContextSwitchBenchmark"
 
 function dep_check() {
 	depends=( node go ab nproc cargo rustc cut)
@@ -42,8 +42,10 @@ function filter() {
 }
 
 function load() {
-	sleep 0.5
-	ab "$@" http://localhost:8080/ > /dev/null 2>&1
+	sleep 0.1
+	echo '```'
+	ab -q -v 1 "$@" http://localhost:8080/
+	echo '```'
 }
 
 dep_check
@@ -71,18 +73,18 @@ node_app | filter
 echo "### Rust actix"
 rust_app | filter
 
-echo "## Bench with 1 client / 1 sec load"
+echo "## Bench with 1 client / 2 sec load"
 
 echo "### Go"
-load -c 1 -t 1 &
+load -c 1 -t 2 &
 go_app | filter
 
 echo "### Node.js"
-load -c 1 -t 1 &
+load -c 1 -t 2 &
 node_app | filter
 
 echo "### Rust actix"
-load -c 1 -t 1 &
+load -c 1 -t 2 &
 rust_app | filter
 
 echo "## Bench with 1 client / 5000 req load"
@@ -97,4 +99,18 @@ node_app | filter
 
 echo "### Rust actix"
 load -c 1 -n 5000 &
+rust_app | filter
+
+echo "## Bench with 5 client / 50000 req load"
+
+echo "### Go"
+load -c 5 -n 20000 &
+go_app | filter
+
+echo "### Node.js"
+load -c 5 -n 20000 &
+node_app | filter
+
+echo "### Rust actix"
+load -c 5 -n 20000 &
 rust_app | filter
